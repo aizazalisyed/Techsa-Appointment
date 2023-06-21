@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="4dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="20dp"
+        >
+
+        <TextView
+            android:id="@+id/techsaLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Techsa Appointment"
+            android:layout_centerHorizontal="true"
+            style="@style/TextAppearance.AppCompat.Headline"
+            android:textStyle="bold"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/SeafoamGreen"
+            />
+
+        <TextView
+            android:id="@+id/patientNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Patient's Name*"
+            android:layout_below="@id/techsaLogo"
+            android:layout_marginTop="20dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/SeafoamGreen"
+            />
+
+        <EditText
+            android:id="@+id/patientNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/patientNameTextView"
+            android:hint="Enter Patient's Name"
+            android:textSize="14sp"
+            />
+
+        <TextView
+            android:id="@+id/doctorNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Doctor's Name*"
+            android:layout_below="@id/patientNameEditText"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/SeafoamGreen"
+            />
+
+        <EditText
+            android:id="@+id/doctorNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/doctorNameTextView"
+            android:hint="Enter Doctor's Name"
+            android:textSize="14sp"
+            />
+        <TextView
+            android:id="@+id/cancleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CANCEL"
+            android:layout_below="@id/doctorNameEditText"
+            android:layout_marginTop="35dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/SeafoamGreen"
+            />
+
+        <TextView
+            android:id="@+id/doneButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/doctorNameEditText"
+            android:layout_marginTop="35dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/SeafoamGreen"
+            android:text="DONE" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

@@ -44,16 +44,22 @@ class RecyclerViewAdapter (val context: Context, val arrModel: Array<Appointment
                 holder.icon.setImageResource(R.drawable.latest)
                 holder.icon.setColorFilter(ContextCompat.getColor(context, R.color.white))
                 holder.statusTextView.text = model.status
+                holder.statusTextView.setTextColor(ContextCompat.getColor(context, R.color.mintgreen));
+                holder.relativeLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.mintgreen))
             }
             "Completed" -> {
                 holder.icon.setImageResource(R.drawable.completed)
                 holder.icon.setColorFilter(ContextCompat.getColor(context, R.color.white))
                 holder.statusTextView.text = model.status
+                holder.statusTextView.setTextColor(ContextCompat.getColor(context, R.color.periwinkle));
+                holder.relativeLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.periwinkle))
             }
             "Cancelled" -> {
                 holder.icon.setImageResource(R.drawable.canclled)
                 holder.icon.setColorFilter(ContextCompat.getColor(context, R.color.white))
                 holder.statusTextView.text = model.status
+                holder.statusTextView.setTextColor(ContextCompat.getColor(context, R.color.peachpuff));
+                holder.relativeLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.peachpuff))
             }
         }
 

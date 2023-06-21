@@ -100,7 +100,6 @@
             android:text="Login"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:backgroundTint="@color/mintgreen"
             android:background="@drawable/round_button"/>
             
     </RelativeLayout>
