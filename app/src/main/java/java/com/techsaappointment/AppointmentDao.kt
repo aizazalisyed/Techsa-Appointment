@@ -12,6 +12,6 @@ interface AppointmentDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
    suspend fun addAppointment(appointmentModel: AppointmentModel)
 
-   @Query("SELECT * FROM appointment_table ORDER BY id ASC")
-   fun readAllData(): LiveData<List<AppointmentModel>>
+   @Query("SELECT * FROM appointment_table WHERE status = 'New Appointment'")
+   fun readAllNewAppointment(): LiveData<List<AppointmentModel>>
 }

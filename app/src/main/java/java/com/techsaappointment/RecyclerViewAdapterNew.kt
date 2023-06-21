@@ -10,9 +10,11 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerViewAdapter (val context: Context, val arrModel: Array<AppointmentModel>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>()
+class RecyclerViewAdapterNew(val context: Context) : RecyclerView.Adapter<RecyclerViewAdapterNew.ViewHolder>()
 {
 
+
+    private var newAppointmentList = emptyList<AppointmentModel>()
 
     class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
 
@@ -30,7 +32,7 @@ class RecyclerViewAdapter (val context: Context, val arrModel: Array<Appointment
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val model : AppointmentModel = arrModel[position]
+        val model : AppointmentModel = newAppointmentList[position]
 
         holder.referenceCodeTextView.text = "Ref#: " + model.id.toString()
         holder.statusTextView.text = model.status
@@ -67,6 +69,11 @@ class RecyclerViewAdapter (val context: Context, val arrModel: Array<Appointment
     }
 
     override fun getItemCount(): Int {
-       return arrModel.size
+       return newAppointmentList.size
+    }
+
+    fun setData(newAppointmentList: List<AppointmentModel>){
+        this.newAppointmentList = newAppointmentList
+        notifyDataSetChanged()
     }
 }

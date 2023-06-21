@@ -9,13 +9,13 @@ import kotlinx.coroutines.launch
 
 class AppointmentViewModel (application: Application): AndroidViewModel(application){
 
-    private val readAllData: LiveData<List<AppointmentModel>>
+     val readAllNewAppointment: LiveData<List<AppointmentModel>>
     private val repository: Repository
 
     init{
         val appointmentDao = AppointmentDataBase.getDataBase(application).appointmentDao()
         repository = Repository(appointmentDao)
-        readAllData = repository.readAllData
+        readAllNewAppointment = repository.readAllNewAppointment
     }
 
     fun addAppointment(appointmentModel: AppointmentModel){

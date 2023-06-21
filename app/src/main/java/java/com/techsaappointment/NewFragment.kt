@@ -9,7 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.EditText
+import android.widget.ListAdapter
 import android.widget.TextView
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
@@ -23,6 +26,7 @@ class NewFragment : Fragment() {
     private lateinit var floatingActionButton: FloatingActionButton
     private lateinit var viewPager: ViewPager2
     private var isFabVisible = true
+    private lateinit var viewModel : AppointmentViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,12 +38,25 @@ class NewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
+
+
         return inflater.inflate(R.layout.fragment_new, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val adapter = RecyclerViewAdapterNew(requireContext())
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewNew)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        viewModel  = ViewModelProvider(this)[AppointmentViewModel::class.java]
+
+        viewModel.readAllNewAppointment.observe(this, androidx.lifecycle.Observer {appointments ->
+             adapter.setData(appointments)
+        })
 
         viewPager = requireActivity().findViewById(R.id.viewPager2)
 
@@ -79,6 +96,14 @@ class NewFragment : Fragment() {
             val patientName = patientNameEditText.text.toString()
             val doctorName = doctorNameEditText.text.toString()
             val currentDate = getCurrentDate()
+
+            if(patientName.isEmpty() || doctorName.isEmpty()){
+                Toast.makeText(requireContext(),"Incomplete Information", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                viewModel.addAppointment(AppointmentModel(0,"New Appointment",doctorName,patientName,currentDate))
+                Toast.makeText(requireContext(),"New Appointment Added", Toast.LENGTH_SHORT).show()
+            }
 
             //todo
 
