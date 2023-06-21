@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewPager2: ViewPager2
     private lateinit var adapter: FragmentPageAdapter
     private lateinit var toolbar: Toolbar
-    private lateinit var floatingActionButton: FloatingActionButton
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         tabLayout = findViewById(R.id.tabLayout)
         viewPager2 = findViewById(R.id.viewPager2)
         toolbar = findViewById(R.id.toolbar)
-        floatingActionButton = findViewById(R.id.floatingActionButton)
 
         setSupportActionBar(toolbar)
         adapter = FragmentPageAdapter(supportFragmentManager, lifecycle)
@@ -77,43 +76,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        floatingActionButton.setOnClickListener {
-            showCustomDialog()
-        }
-
     }
 
-    private fun getCurrentDate(): String {
-        val dateFormat = SimpleDateFormat("dd/MM/yy", Locale.getDefault())
-        val currentDate = Date()
-        return dateFormat.format(currentDate)
-    }
-
-    private fun showCustomDialog() {
-        val dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        val view = LayoutInflater.from(this).inflate(R.layout.add_appointment_dialogbox, null)
-        dialog.setContentView(view)
-
-        val cancelButton: TextView = view.findViewById(R.id.cancleTextView)
-        val doneButton: TextView = view.findViewById(R.id.doneButton)
-        val patientNameEditText: EditText = view.findViewById(R.id.patientNameEditText)
-        val doctorNameEditText: EditText = view.findViewById(R.id.doctorNameEditText)
-
-        cancelButton.setOnClickListener {
-            dialog.dismiss()
-        }
-
-        doneButton.setOnClickListener {
-            val patientName = patientNameEditText.text.toString()
-            val doctorName = doctorNameEditText.text.toString()
-            val currentDate = getCurrentDate()
-
-           //todo
-
-            dialog.dismiss()
-        }
-
-        dialog.show()
-    }
 }

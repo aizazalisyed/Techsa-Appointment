@@ -1,16 +1,29 @@
 package java.com.techsaappointment
 
+import android.animation.ObjectAnimator
+import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.EditText
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.text.SimpleDateFormat
+import java.util.*
 
 class NewFragment : Fragment() {
 
-    private lateinit var appointmentModelArray: Array<AppointmentModel>
+    private lateinit var floatingActionButton: FloatingActionButton
+    private lateinit var viewPager: ViewPager2
+    private var isFabVisible = true
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,32 +41,83 @@ class NewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewPager = requireActivity().findViewById(R.id.viewPager2)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewNew)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        floatingActionButton = view.findViewById(R.id.floatingActionButton)
+        floatingActionButton.setOnClickListener {
+            showCustomDialog()
+        }
 
-        initialize()
-
-        val recyclerViewAdapter = RecyclerViewAdapter(requireContext(), appointmentModelArray)
-        recyclerView.adapter = recyclerViewAdapter
-        recyclerViewAdapter.notifyDataSetChanged()
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                if (position != 0) {
+                    hideFab()
+                } else {
+                    showFab()
+                }
+            }
+        })
     }
 
-    private fun initialize() {
 
-        appointmentModelArray = arrayOf(
-            AppointmentModel(1, "New Appointment", "Dr Aizaz Ali", "Abdul Majid", "12/6/23"),
-            AppointmentModel(2, "New Appointment", "Dr Ahmed Raza", "Abdul Majid", "12/6/23"),
-            AppointmentModel(3, "New Appointment", "Dr Haneef", "Abdul Majid", "12/6/23"),
-            AppointmentModel(4, "New Appointment", "Dr Ijaz Ahmed", "Abdul Majid", "12/6/23"),
-            AppointmentModel(5, "New Appointment", "Dr Muzamil", "Abdul Majid", "12/6/23"),
-            AppointmentModel(6, "New Appointment", "Dr Hassan", "Abdul Majid", "12/6/23"),
-            AppointmentModel(7, "New Appointment", "Dr Ifran Hameed", "Abdul Majid", "12/6/23"),
-            AppointmentModel(7, "New Appointment", "Dr Iqrar", "Abdul Majid", "12/6/23"),
-            AppointmentModel(9, "New Appointment", "Dr Mushtaq", "Abdul Majid", "12/6/23"),
-            AppointmentModel(10, "New Appointment", "Dr Youfus", "Abdul Majid", "12/6/23")
-        )
+    private fun showCustomDialog() {
+        val dialog = Dialog(context!!)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        val view = LayoutInflater.from(context!!).inflate(R.layout.add_appointment_dialogbox, null)
+        dialog.setContentView(view)
 
+        val cancelButton: TextView = view.findViewById(R.id.cancleTextView)
+        val doneButton: TextView = view.findViewById(R.id.doneButton)
+        val patientNameEditText: EditText = view.findViewById(R.id.patientNameEditText)
+        val doctorNameEditText: EditText = view.findViewById(R.id.doctorNameEditText)
+
+        cancelButton.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        doneButton.setOnClickListener {
+            val patientName = patientNameEditText.text.toString()
+            val doctorName = doctorNameEditText.text.toString()
+            val currentDate = getCurrentDate()
+
+            //todo
+
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
+    private fun getCurrentDate(): String {
+        val dateFormat = SimpleDateFormat("dd/MM/yy", Locale.getDefault())
+        val currentDate = Date()
+        return dateFormat.format(currentDate)
+    }
+    private fun hideFab() {
+        if (isFabVisible) {
+            val animator = ObjectAnimator.ofFloat(
+                floatingActionButton,
+                "alpha",
+                1f,
+                0f
+            )
+            animator.duration = 100
+            animator.start()
+            isFabVisible = false
+        }
+    }
+
+    private fun showFab() {
+        if (!isFabVisible) {
+            val animator = ObjectAnimator.ofFloat(
+                floatingActionButton,
+                "alpha",
+                0f,
+                1f
+            )
+            animator.duration = 2000
+            animator.start()
+            isFabVisible = true
+        }
+    }
 }
